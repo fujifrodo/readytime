@@ -1,0 +1,38 @@
+# .htaccess for นัดเพื่อน MySQL Version
+
+# เปิด Error Display (สำหรับ debug เท่านั้น - ปิดในเว็บจริง)
+php_flag display_errors On
+php_flag display_startup_errors On
+php_value error_reporting E_ALL
+
+# ตั้งค่า PHP
+php_value max_execution_time 300
+php_value max_input_time 300
+php_value memory_limit 256M
+php_value post_max_size 50M
+php_value upload_max_filesize 50M
+
+# Force HTTPS (ถ้าต้องการ - comment ออกถ้าไม่มี SSL)
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ป้องกันการเข้าถึงไฟล์สำคัญ
+<FilesMatch "^(config\.php|database\.sql|\.htaccess)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# ตั้งค่า Default Charset
+AddDefaultCharset UTF-8
+
+# Enable Session
+php_value session.auto_start 1
+php_value session.gc_maxlifetime 3600
+
+# Prevent Directory Listing
+Options -Indexes
+
+# Custom Error Pages (ถ้ามี)
+# ErrorDocument 404 /404.php
+# ErrorDocument 500 /500.php
